@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Derivatives Trading — A Quant Finance Career Guide</title>
+<meta name="description" content="An explainer site for currency (FX) derivatives trading as a quantitative finance career: market structure, terminology, products, key skills, major venues, and career paths.">
+<style>
+  :root{
+    --bg:#0b1220;
+    --panel:#111a2e;
+    --panel2:#16223a;
+    --ink:#e8eef7;
+    --muted:#9fb0c8;
+    --accent:#4fd1c5;      /* teal */
+    --accent2:#f5b942;     /* gold */
+    --accent3:#5aa9ff;     /* blue */
+    --danger:#ff7a6e;
+    --line:#243352;
+    --radius:14px;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.65;
+  }
+  a{color:var(--accent3);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;background:rgba(11,18,32,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-weight:800;letter-spacing:.4px;color:var(--ink)}
+  .logo span{color:var(--accent)}
+  .navlinks{display:flex;gap:18px;flex-wrap:wrap}
+  .navlinks a{color:var(--muted);font-size:.92rem;font-weight:600}
+  .navlinks a:hover{color:var(--ink);text-decoration:none}
+
+  /* HERO */
+  header{padding:84px 0 64px;border-bottom:1px solid var(--line);
+    background:radial-gradient(1200px 500px at 15% -10%,rgba(79,209,197,.12),transparent 60%),
+               radial-gradient(900px 420px at 90% 0%,rgba(90,169,255,.10),transparent 60%);}
+  .kicker{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);border:1px solid rgba(79,209,197,.4);
+    padding:6px 12px;border-radius:999px;margin-bottom:20px}
+  h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.15;font-weight:800;margin-bottom:16px}
+  h1 em{font-style:normal;color:var(--accent)}
+  .sub{color:var(--muted);font-size:1.1rem;max-width:760px;margin-bottom:28px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;
+    padding:8px 16px;font-size:.88rem;color:var(--muted)}
+  .chip b{color:var(--ink)}
+
+  /* SECTIONS */
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  section:nth-of-type(even){background:linear-gradient(180deg,rgba(255,255,255,.015),transparent)}
+  .sec-head{margin-bottom:34px}
+  .sec-num{font-size:.8rem;font-weight:800;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase}
+  h2{font-size:clamp(1.5rem,3.4vw,2.2rem);font-weight:800;margin:6px 0 10px}
+  .lead{color:var(--muted);max-width:820px}
+
+  /* CARDS / GRIDS */
+  .grid{display:grid;gap:18px}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .card h3{font-size:1.06rem;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .card p{color:var(--muted);font-size:.95rem}
+  .ico{width:38px;height:38px;border-radius:10px;display:inline-flex;align-items:center;
+    justify-content:center;font-size:1.15rem;background:var(--panel2);border:1px solid var(--line);flex:none}
+
+  /* GLOSSARY */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);color:var(--muted);
+    padding:8px 16px;border-radius:999px;font-size:.88rem;font-weight:600;cursor:pointer}
+  .tab.active{background:var(--accent);color:#06201d;border-color:var(--accent)}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:14px 18px;margin-bottom:10px}
+  details summary{cursor:pointer;font-weight:700;list-style:none;display:flex;
+    justify-content:space-between;align-items:center;gap:10px}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";color:var(--accent);font-weight:800;font-size:1.1rem}
+  details[open] summary::after{content:"–"}
+  details .term-tag{font-size:.72rem;font-weight:700;color:var(--accent3);
+    border:1px solid rgba(90,169,255,.35);border-radius:999px;padding:2px 10px;margin-left:auto}
+  details p{color:var(--muted);margin-top:10px;font-size:.94rem}
+  .hidden{display:none}
+
+  /* TABLES */
+  table{width:100%;border-collapse:collapse;background:var(--panel);
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:.93rem}
+  th{background:var(--panel2);text-align:left;padding:13px 16px;font-size:.8rem;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top}
+  td b{color:var(--ink)}
+  td .exch{font-weight:800;color:var(--accent)}
+  .tbl-scroll{overflow-x:auto;border-radius:var(--radius)}
+
+  /* SKILLS */
+  .skill{margin-bottom:16px}
+  .skill .row{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px}
+  .skill .row span:last-child{color:var(--muted)}
+  .bar{height:9px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:999px;
+    background:linear-gradient(90deg,var(--accent),var(--accent3))}
+
+  /* PATH */
+  .path{position:relative;padding-left:34px}
+  .path::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(180deg,var(--accent),var(--accent3))}
+  .step{position:relative;margin-bottom:26px;background:var(--panel);
+    border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
+  .step::before{content:"";position:absolute;left:-29px;top:26px;width:14px;height:14px;
+    border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+  .step h3{font-size:1.05rem;margin-bottom:4px}
+  .step .meta{font-size:.8rem;color:var(--accent2);font-weight:700;letter-spacing:.05em;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:.94rem}
+
+  /* CALLOUT */
+  .callout{border-left:4px solid var(--accent);background:var(--panel);
+    border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin-top:26px}
+  .callout b{color:var(--accent)}
+
+  footer{padding:46px 0 60px;color:var(--muted);font-size:.9rem}
+  footer .links{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+  .byline{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:.95rem;color:var(--ink)}
+  .byline a.email{color:var(--accent);text-decoration:none;margin-left:6px}
+  .byline a.email:hover{text-decoration:underline}
+  .socials{display:inline-flex;gap:12px;margin-left:10px;vertical-align:middle}
+  .socials a{display:inline-flex;align-items:center;color:var(--muted);transition:color .2s, transform .2s}
+  .socials a:hover{color:var(--accent);transform:translateY(-2px)}
+  .socials svg{width:19px;height:19px;fill:currentColor}
+  @media (max-width:640px){ .navlinks{display:none} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">FX<span>·</span>DERIV Quant <span style="color:var(--muted);font-weight:500;font-size:.85rem">career guide</span></div>
+    <div class="navlinks">
+      <a href="#overview">Overview</a>
+      <a href="#products">Products</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#skills">Skills</a>
+      <a href="#venues">Venues</a>
+      <a href="#strategies">Strategies</a>
+      <a href="#career">Career Path</a>
+      <a href="#resources">Resources</a>
+    </div>
+  </div>
+</nav>
+
+<header id="overview">
+  <div class="wrap">
+    <span class="kicker">Quantitative Finance · FX & Currency Derivatives Desk</span>
+    <h1>Currency Derivatives Trading<br>as a <em>Quant Finance</em> Career</h1>
+    <p class="sub">A practical explainer for aspiring quants who want to trade the world's largest market — forwards, NDFs,
+    FX options, volatility books and crosses. What FX desks actually do, the language they speak, the skills that get you hired,
+    where these instruments trade, and how the career ladder works.</p>
+    <div class="chips">
+      <div class="chip"><b>~$9.6T/day</b> global FX turnover (BIS Triennial Survey 2025)</div>
+      <div class="chip"><b>~$2.4T/day</b> in FX derivatives (forwards, options, swaps)</div>
+      <div class="chip"><b>24-hour</b>, dealer + ECN + exchange hybrid market</div>
+      <div class="chip"><b>Macro · vol · carry · RF</b> career lanes</div>
+    </div>
+    <p class="byline" style="border-top:none;padding-top:14px;margin-top:20px">Created by <b>Prakhar Gupta</b> · Quant Finance<span class="socials">
+      <a href="https://www.linkedin.com/in/prakhar-gupta-5b7250372/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+      <a href="https://x.com/PrakharQuant" target="_blank" rel="noopener" aria-label="X (Twitter)" title="X / Twitter"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41z"/></svg></a>
+    </span></p>
+  </div>
+</header>
+
+<!-- ==================== WHAT IS FX DERIVATIVES TRADING ==================== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01 · The Market</div>
+      <h2>What is currency derivatives trading?</h2>
+      <p class="lead">Currency derivatives are contracts whose value derives from exchange rates: forwards, non-deliverable
+      forwards (NDFs), FX swaps, options and listed futures. Corporations and asset managers use them to hedge; central banks
+      and funds use them to manage reserves; and traders — discretionary and systematic — take directional, relative-value and
+      volatility positions. FX has no single "spot close," no listing regime and no cash-flow anchor like equities: prices emerge
+      from interest-rate differentials, macro flows and positioning, which makes it one of the most quantitatively driven markets there is.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <h3><span class="ico">💱</span>G10 Majors</h3>
+        <p>EURUSD, USDJPY, GBPUSD, AUDUSD, USDCAD, USDCHF and the NZD pair. Deepest liquidity, tightest spreads,
+        exchange-listed options (CME/PHlx) plus massive OTC books. The training ground for every FX quant.</p>
+      </div>
+      <div class="card">
+        <h3><span class="ico">🌏</span>Emerging-Market Crosses</h3>
+        <p>USDBRL, USDINR, USDCNH, USDZAR, USDTRY, MXN, KRW. Often restricted or partially convertible — traded as
+        NDFs with offshore fixings. Higher vol, fatter tails, richer carry: the alpha-and-risk frontier of FX.</p>
+      </div>
+      <div class="card">
+        <h3><span class="ico">⚙️</span>Crosses & Exotics</h3>
+        <p>EURGBP, EURJPY, AUDNZD derived via triangular arbitrage off USD legs; plus barrier options, digitals,
+        targeted-knock-outs and accumulators sold by structuring desks to corporates. Quants price and hedge the path-dependence.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <b>Why quants fit here:</b> FX returns are driven by observable, modelable primitives — rate differentials (covered interest parity),
+      macro data releases, order flow and volatility surfaces. Volatility itself is the P&L: realized vs implied gaps, risk-reversal skew
+      and term structure are tradable on any horizon from milliseconds to months. That breadth — macro research, stat-arb, vol trading,
+      HFT market-making — is why FX desks hire more quants per trader than almost any other asset class.
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PRODUCTS ==================== -->
+<section id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02 · The Instrument Shelf</div>
+      <h2>Core currency derivative products</h2>
+      <p class="lead">Know what each product is for, who issues it, and where the quant edge lives.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3><span class="ico">➡️</span>FX Forward</h3><p>OTC agreement to exchange two currencies at a set rate on a future date. Priced by interest-rate differentials: F = S·e^{(r_d−r_f)T}. The building block of all FX curve math and corporate hedging.</p></div>
+      <div class="card"><h3><span class="ico">🚫</span>Non-Deliverable Forward (NDF)</h3><p>Cash-settled forward for restricted currencies (INR, BRL, KRW, CNH…). Settles fixing-vs-contract difference in USD. Its premium/discount encodes capital controls and offshore demand — a signal quants model directly.</p></div>
+      <div class="card"><h3><span class="ico">🔄</span>FX Swap &amp; CCS</h3><p>Simultaneous buy/sell of a currency pair at two dates (spot-forward or forward-forward) — the funding engine of global banks. Cross-currency swaps expose the basis between currencies and underpin covered-interest-parity deviations.</p></div>
+      <div class="card"><h3><span class="ico">📈</span>FX Option</h3><p>Right, not obligation, to exchange at a strike (European vanilla). Traded OTC (interbank) and listed (CME/PHlx). Quoted in Black-Scholes implied vol; the smile/skew carries the risk-reversal and butterfly information desks trade.</p></div>
+      <div class="card"><h3><span class="ico">🎯</span>Exotics &amp; Structured Payoffs</h3><p>Barriers (knock-in/out), digitals, Asian (average-rate) options, targeted knock-outs, accumulators/deccies. Sold to corporates via structuring; hedged by quant desks running Monte Carlo and local-vol/stochastic-vol models.</p></div>
+      <div class="card"><h3><span class="ico">🏛️</span>Listed FX Futures &amp; Options</h3><p>Exchange-cleared futures on CME, SGX, MCX, DCE… and clearing migrating OTC swaps toward CCPs post-Dodd-Frank/EMIR. Transparent margins and curves — the accessible entry point for independent systematic traders.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GLOSSARY ==================== -->
+<section id="glossary">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03 · Speak The Language</div>
+      <h2>Industry terminology decoder</h2>
+      <p class="lead">Filter by category. Every FX desk interview assumes you know these cold.</p>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-cat="all">All</button>
+      <button class="tab" data-cat="quotes">Quoting & Conventions</button>
+      <button class="tab" data-cat="pricing">Pricing & Curves</button>
+      <button class="tab" data-cat="options">Options & Vol</button>
+      <button class="tab" data-cat="risk">Risk & Funding</button>
+      <button class="tab" data-cat="quant">Macro & Quant</button>
+    </div>
+
+    <div id="glossary-list">
+      <!-- quotes -->
+      <details data-cat="quotes"><summary>Currency pair &amp; base/quote currency <span class="term-tag">Conventions</span></summary>
+        <p>Every FX price is relative: EURUSD 1.08 means 1 euro buys 1.08 US dollars — EUR is the base, USD the quote.
+        You always buy the base and sell the quote. Convention order (EUR&gt;USD&gt;GBP&gt;AUD…) matters when coding tickers correctly.</p></details>
+      <details data-cat="quotes"><summary>Pip <span class="term-tag">Conventions</span></summary>
+        <p>"Percentage in point" — the 4th decimal for most pairs (0.0001), 2nd for JPY pairs (0.01). Quoting convention:
+        dealers quote "points" above spot (e.g., "two-five" = 25 points = 0.0025). Position sizing starts from pip value.</p></details>
+      <details data-cat="quotes"><summary>Bid / offer / spread <span class="term-tag">Conventions</span></summary>
+        <p>The dealer's buy (bid) and sell (offer) prices; the gap is the spread — your round-trip cost. In liquid majors it can be
+        sub-half-pip; in EM crosses several pips. Microstructure quants model spread dynamics and adverse selection explicitly.</p></details>
+      <details data-cat="quotes"><summary>TOM / SPOT / TOM-next <span class="term-tag">Conventions</span></summary>
+        <p>Standard settlement dates: today (T0), tomorrow (TOM/T1) and spot (T2, or T1 for some pairs). Rolling off the short-dated
+        book nightly ("tom-next") is where funding views become trades — and where LIBOR-era swap-point math still lives.</p></details>
+      <details data-cat="quotes"><summary>ON / TN / SN / FN <span class="term-tag">Conventions</span></summary>
+        <p>Overnight, Tom-Next, Spot-Next, Forward-Next — the tenor ladder of FX swap points. Each tenor has its own supply/demand
+        (month-end, quarter-end flows) and its own microstructure signature.</p></details>
+      <details data-cat="quotes"><summary>Big figure / dealing room slang <span class="term-tag">Conventions</span></summary>
+        <p>Traders quote only the last digits once the big figure is known ("deal with me at two-five"). Other classics:
+        "cable" (GBPUSD), "fiber" (EURUSD), "kiwi", "loonie", "the greenback". Knowing the slang signals desk readiness.</p></details>
+      <details data-cat="quotes"><summary>ECN / EBS / RFQ <span class="term-tag">Conventions</span></summary>
+        <p>Electronic communication networks (EBS, Reuters Matching, LMAX) and request-for-quote streams replaced open voice outcry.
+        Today most interbank volume is algorithmic RFQ — latency, queue position and fill probability are quant problems.</p></details>
+
+      <!-- pricing -->
+      <details data-cat="pricing"><summary>Interest-rate differential / swap points <span class="term-tag">Pricing</span></summary>
+        <p>Forward rates deviate from spot by the two currencies' rate difference: F ≈ S·(1+r_d·T)/(1+r_f·T). The deviation quoted
+        in "swap points" is the purest visible price of money carry in FX.</p></details>
+      <details data-cat="pricing"><summary>Covered interest parity (CIP) &amp; cross-currency basis <span class="term-tag">Pricing</span></summary>
+        <p>No-arbitrage link between spot, forward and the two risk-free rates. Post-2008 the basis persistently deviates from zero —
+        bank balance-sheet constraints, Fed dollar-swap lines and regulation make CIP violations a tradable funding signal.</p></details>
+      <details data-cat="pricing"><summary>NDF fixing &amp; deliverable premium <span class="term-tag">Pricing</span></summary>
+        <p>NDFs settle against an official fixing (e.g., RBI INR reference, WM/Refinitiv London 4pm close). When onshore/offshore
+        convertibility differs, NDF pricing embeds a "deliverable premium" — a direct read on capital-control pressure.</p></details>
+      <details data-cat="pricing"><summary>Triangular arbitrage / cross derivation <span class="term-tag">Pricing</span></summary>
+        <p>EURGBP must equal EURUSD ÷ GBPEUR (with bid/offer orientation flipped correctly). Violations beyond transaction cost are
+        arbitraged in microseconds; modeling the three-leg execution race is classic FX HFT.</p></details>
+      <details data-cat="pricing"><summary>WM/Refinitiv &amp; ESMA closes <span class="term-tag">Pricing</span></summary>
+        <p>The 4pm London benchmark auction used by mutual funds and index providers; Europe's mandated closing-window fixes.
+        Massive predictable flows concentrate there — window internalization and impact estimation are real quant businesses.</p></details>
+      <details data-cat="pricing"><summary>Forward curve &amp; roll <span class="term-tag">Pricing</span></summary>
+        <p>The term structure of swap points across tenors. Shifting rate expectations reprice the whole curve; rolling a forward
+        book monthly realizes curve changes — FX's analogue of commodity roll yield.</p></details>
+
+      <!-- options -->
+      <details data-cat="options"><summary>Implied volatility (IV) &amp; the smile <span class="term-tag">Options</span></summary>
+        <p>The vol that reproduces market option prices under Black-76. FX smiles are pronounced: deep OTM puts (crash fear) and
+        OTM calls (devaluation fear) both price above ATM. Smile level and slope are themselves traded as vol products.</p></details>
+      <details data-cat="options"><summary>Risk reversal (RR) <span class="term-tag">Options</span></summary>
+        <p>Difference between OTM call and OTM put implied vols — the market's directional skew. RRs blow out before crises
+        (e.g., EUR calls vs puts in 2010, EM puts pre-shock) and are a leading sentiment gauge quants backtest heavily.</p></details>
+      <details data-cat="options"><summary>Butterfly / strangle <span class="term-tag">Options</span></summary>
+        <p>Butterfly measures curvature (wing premium over the RR mid); strangles combine symmetric wings. Decomposing an FX option
+        surface into ATM vol + RR + BF isolates exactly which part of the smile you're betting on.</p></details>
+      <details data-cat="options"><summary>Delta, gamma, vega, charm, vanna <span class="term-tag">Options</span></summary>
+        <p>First-order Greeks plus second-order cross-effects: charm = delta decay with time, vanna = delta change with vol.
+        Dealer hedging of vanna/charm drives "gamma squeezes" and pinning around large strikes — a live FX phenomenon.</p></details>
+      <details data-cat="options"><summary>Vol-of-vol &amp; stochastic vol <span class="term-tag">Options</span></summary>
+        <p>How fast implied vol itself moves. Modeled by SABR/Heston; critical for pricing long-dated FX options and for anyone
+        running a vol book where variance, not direction, is the underlying.</p></details>
+      <details data-cat="options"><summary>Barrier levels &amp; knockout zones <span class="term-tag">Options</span></summary>
+        <p>Knock-in/knock-out strikes where hedging flows step-change as barriers trigger. Desks model "barrier danger zones"
+        probabilistically; breaching one can cascade spot moves — path-dependence made visible.</p></details>
+      <details data-cat="options"><summary>Correlation (FX vs assets) <span class="term-tag">Options</span></summary>
+        <p>EURUSD vs equity vol, commodity FX (AUD, NOK, RUB) vs their underlying metals/oil, MXN vs oil. Multi-asset correlation
+        regimes decide cross-asset books; correlation swaps monetize them directly.</p></details>
+
+      <!-- risk -->
+      <details data-cat="risk"><summary>Notional vs margin <span class="term-tag">Risk</span></summary>
+        <p>FX trades huge notionals on tiny margins (retail leverage up to 30:1–500:1; institutional CCP margins ~1–5%).
+        Real risk is tail-move × notional — sizing must come from VaR/stress, never from available leverage.</p></details>
+      <details data-cat="risk"><summary>VaR / CVaR &amp; stress testing <span class="term-tag">Risk</span></summary>
+        <p>Worst-loss-at-confidence metrics plus scenario replay (SNB CHF floor removal −30% in minutes, 2016 Brexit gap,
+        TRY devaluations). FX gaps through stops — fat-tailed, jump-aware risk models are mandatory, not optional.</p></details>
+      <details data-cat="risk"><summary>CSA, netting &amp; XVA <span class="term-tag">Risk</span></summary>
+        <p>Collateral agreements (CSAs) and netting sets reduce counterparty exposure post-trade; XVA charges (CVA, FVA, KVA)
+        price credit, funding and capital costs into every OTC deal. Modern FX desks quote with XVA engines in the loop.</p></details>
+      <details data-cat="risk"><summary>Funding / carry &amp; rollover cost <span class="term-tag">Risk</span></summary>
+        <p>Holding a long-EURUSD position means borrowing USD against EUR collateral daily — the tom-next rate is your true carry.
+        Carry regimes flip with central-bank policy; the entire "carry trade" factor is this mechanic scaled up.</p></details>
+      <details data-cat="risk"><summary>Position limits &amp; reporting <span class="term-tag">Risk</span></summary>
+        <p>Regulatory and internal caps on net open exposure per currency/tenor; MiFID II/CFTC rules push cleared flow to CCPs.
+        Systematic books must bake limit checks and best-execution analytics into the pipeline.</p></details>
+
+      <!-- quant -->
+      <details data-cat="quant"><summary>Carry trade <span class="term-tag">Macro</span></summary>
+        <p>Long high-yield, short low-yield currency, harvesting the rate differential (historically JPY-funded, now USD-long vs
+        low-rate pairs). High Sharpe until it isn't — crash-prone, so quants overlay vol targeting and drawdown control.</p></details>
+      <details data-cat="quant"><summary>Momentum &amp; time-series trend <span class="term-tag">Macro</span></summary>
+        <p>Currencies that appreciated over 1–12 months tend to keep appreciating (weight-of-evidence across decades of data).
+        Combined with carry and value, momentum forms the canonical FX factor trio.</p></details>
+      <details data-cat="quant"><summary>PPP &amp; real-effective-rate value <span class="term-tag">Macro</span></summary>
+        <p>Purchasing-power parity says exchange rates drift toward relative price levels; REER indices operationalize it.
+        Slow, powerful at 5-year horizons — the fundamental anchor for long-horizon quant macro books.</p></details>
+      <details data-cat="quant"><summary>Macro announcement effects <span class="term-tag">Macro</span></summary>
+        <p>NFP, CPI, central-bank decisions produce the largest intraday FX moves. Event studies around release windows —
+        surprise magnitude, hawkish/dovish scoring of statements via NLP — are standard quant research projects.</p></details>
+      <details data-cat="quant"><summary>Order flow &amp; microstructure alpha <span class="term-tag">Quant</span></summary>
+        <p>Toxicity of flow, queue dynamics on RFQ streams, footprint of benchmark auctions. Market-maker P&L comes from
+        inventory management under informed/uninformed flow — a genuinely statistical control problem.</p></details>
+      <details data-cat="quant"><summary>Regime switching &amp; vol targeting <span class="term-tag">Quant</span></summary>
+        <p>FX alternates between trending, mean-reverting and crisis regimes detectable via HMMs, realized-vol clustering and
+        cross-asset stress gauges. Position sizing keyed to regime/vol is what separates surviving systematic books from blown ones.</p></details>
+      <details data-cat="quant"><summary>Backtesting pitfalls in FX <span class="term-tag">Quant</span></summary>
+        <p>No single consolidated tape, bid/offer asymmetry, weekend gaps, holiday calendars, changing conventions (LIBOR→SOFR).
+        A credible FX backtest needs tick-level bid/offer data — close-price-only tests systematically overstate performance.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SKILLS ==================== -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">04 · The Toolkit</div>
+      <h2>Key skills required</h2>
+      <p class="lead">FX quants sit at the intersection of stochastic calculus, macro intuition and electronic-market engineering.
+      Roughly what hiring managers weight:</p>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="skill"><div class="row"><span>Probability & statistics (time series, Bayesian updating)</span><span>Core</span></div><div class="bar"><i style="width:95%"></i></div></div>
+        <div class="skill"><div class="row"><span>Stochastic calculus & derivatives pricing (Black-76, SABR, Heston, Garman-Kohlhagen)</span><span>Core</span></div><div class="bar"><i style="width:90%"></i></div></div>
+        <div class="skill"><div class="row"><span>Machine learning (gradient boosting, deep nets, NLP on central-bank text)</span><span>High</span></div><div class="bar"><i style="width:80%"></i></div></div>
+        <div class="skill"><div class="row"><span>Optimization & portfolio construction (factor allocation, vol targeting)</span><span>High</span></div><div class="bar"><i style="width:78%"></i></div></div>
+      </div>
+      <div class="card">
+        <div class="skill"><div class="row"><span>Python (pandas, numpy, statsmodels) — research & production</span><span>Must-have</span></div><div class="bar"><i style="width:97%"></i></div></div>
+        <div class="skill"><div class="row"><span>C++ / Rust — pricing libraries & low-latency execution</span><span>Strong plus</span></div><div class="bar"><i style="width:75%"></i></div></div>
+        <div class="skill"><div class="row"><span>SQL + data engineering (tick bid/offer, curves, surfaces)</span><span>Must-have</span></div><div class="bar"><i style="width:88%"></i></div></div>
+        <div class="skill"><div class="row"><span>Domain sense: rate differentials, macro calendar, clearing & funding</span><span>Differentiator</span></div><div class="bar"><i style="width:76%"></i></div></div>
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:18px">
+      <div class="card"><h3><span class="ico">🧮</span>Mathematics</h3><p>Linear algebra, Itô calculus, jump-diffusions (FX gaps!), OU processes for spreads, cointegration/Kalman filters for crosses, Monte Carlo for exotics, convex optimization for book construction.</p></div>
+      <div class="card"><h3><span class="ico">💻</span>Engineering</h3><p>Event-driven backtesters handling bid/offer and holiday calendars, kdb+/ClickHouse tick stores, FIX-API connectivity to ECNs/brokers, cloud pipelines, and enough networking to reason about colocation and RFQ latency.</p></div>
+      <div class="card"><h3><span class="ico">🗣️</span>Communication & grit</h3><p>Explaining a vol-surface view to PMs and clients, writing crisp trade rationales, staying disciplined through carry crashes. Desks hire people they trust under gap risk.</p></div>
+    </div>
+    <div class="callout"><b>Certifications that help (but don't substitute for a track record):</b>
+    FRM (risk-heavy, very relevant to FX books), CFA (macro literacy), ACI Operations/Dealing certificates (market mechanics),
+    and above all — a reproducible research portfolio: e.g., your own carry+momentum FX strategy backtested on real bid/offer data
+    with honest transaction costs.</div>
+  </div>
+</section>
+
+<!-- ==================== VENUES ==================== -->
+<section id="venues">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">05 · Where It Trades</div>
+      <h2>Major exchanges &amp; trading venues</h2>
+      <p class="lead">FX is dealer-intermediated first, exchange-cleared second. Know both layers — interviews love them.</p>
+    </div>
+    <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Venue</th><th>Location / Type</th><th>Role in currency derivatives</th><th>Signature products</th></tr></thead>
+      <tbody>
+        <tr><td><span class="exch">CME Group</span></td><td>Chicago — listed exchange</td>
+            <td>Largest listed FX futures & options market; transparent curves and margins</td>
+            <td><b>FX futures</b> (6E EUR, 6J JPY, 6B GBP…), <b>PHlx options</b>, FX basis futures, Fed-funds-linked</td></tr>
+        <tr><td><span class="exch">EBS Market</span></td><td>NY/London — ECN</td>
+            <td>Interbank venue for majors; institutional spot/tom-next flow</td>
+            <td>Spot, forward, NDF streaming</td></tr>
+        <tr><td><span class="exch">Refinitiv Matching (trad. Tradeweb/Bloomberg)</span></td><td>London — ECN/RNQ</td>
+            <td>RFQ-based multi-dealer platforms dominating institutional FX execution</td>
+            <td>Spot, forwards, options RFQ streams</td></tr>
+        <tr><td><span class="exch">LMAX Global</span></td><td>London — ECN</td>
+            <td>Central-limit-book FX for institutions & sophisticated traders; equal-access matching</td>
+            <td>Spot, margin FX, clearing via LCH</td></tr>
+        <tr><td><span class="exch">SGX FX</span></td><td>Singapore</td>
+            <td>Asia-Pacific hub for FX derivatives & clearing; strong EM-cross franchise</td>
+            <td>FX futures/options, NDF clearing</td></tr>
+        <tr><td><span class="exch">MCX</span></td><td>Mumbai — India</td>
+            <td>India's currency-derivatives exchange (USDINR/USDEUR/USDGBP/USDJPY futures & options) under RBI/FSMC rules</td>
+            <td><b>USDINR futures/options</b>, currency cross futures</td></tr>
+        <tr><td><span class="exch">DCE / SHFE / CFETS</span></td><td>China</td>
+            <td>Onshore yuan derivatives (CFETS interbank forwards/swaps/options; DCE FX futures pilots)</td>
+            <td>USDCNH/USDCNY products, FX swaps</td></tr>
+        <tr><td><span class="exch">KRX / TSX / ASX / B3</span></td><td>Seoul / Sydney / São Paulo</td>
+            <td>Local currency futures & options for domestic hedging demand</td>
+            <td>USDKRW, AUD, BRL futures & listed options</td></tr>
+        <tr><td><span class="exch">Clearing: LCH, CME Clearing, ICE Clear</span></td><td>London/NY — CCPs</td>
+            <td>Post-financial-crisis mandate pushing bilateral FX forwards/NDFs into central clearing</td>
+            <td>Unified NDF clearing, margin netting</td></tr>
+        <tr><td><span class="exch">Benchmarks: WM/Refinitiv, Visa/Mastercard</span></td><td>London/global — PRAs</td>
+            <td>Auction closes that fix NDF settlements and fund NAVs; card-network rates drive retail conversion economics</td>
+            <td>4pm London WM-R fix, daily USD crosses</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card"><h3><span class="ico">🏦</span>Top dealers</h3><p>JPMorgan, Deutsche Bank, Citi, UBS, Barclays, Goldman run the interbank inventories that exchanges and ECNs route through. Most FX quant jobs sit inside these dealer banks or their electronic arms.</p></div>
+      <div class="card"><h3><span class="ico">📊</span>Data vendors</h3><p>LMAX/Dukascopy tick archives, Refinitiv/Eikon & Bloomberg fxfa, BIS Triennial Survey (the market census), FRED/OECD macro series, central-bank statement corpora for NLP work.</p></div>
+      <div class="card"><h3><span class="ico">🛰️</span>Alt-data</h3><p>Payment-card flows, customs/trade data, satellite of industrial activity, political-event feeds. EM FX alpha increasingly comes from seeing fundamentals before consensus prints them.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STRATEGIES ==================== -->
+<section id="strategies">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06 · How Alpha Is Made</div>
+      <h2>Quant strategy families on FX desks</h2>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3><span class="ico">📈</span>Carry &amp; factors</h3><p>Rate-differential harvesting blended with momentum and value (REER) into multi-factor portfolios; vol-targeted to survive carry crashes. The flagship systematic FX strategy.</p></div>
+      <div class="card"><h3><span class="ico">🌍</span>Macro / event-driven</h3><p>Positioning around CPI, NFP, central-bank meetings and elections; NLP hawkishness scores; surprise-reaction studies. Discretionary-plus-quant hybrid desks.</p></div>
+      <div class="card"><h3><span class="ico">🔀</span>Stat-arb &amp; relative value</h3><p>Cross-consistency (triangular), forward-vs-implied fair value, NDF premium dislocations, dispersion across EM complexes. Short half-life, tightly modeled.</p></div>
+      <div class="card"><h3><span class="ico">🎭</span>Volatility trading</h3><p>Implied-vs-realized vol, RR/BF skew expression, variance swaps, gamma scalping. Purest quant seat in FX — you trade moments, not directions.</p></div>
+      <div class="card"><h3><span class="ico">⚡</span>HFT &amp; market-making</h3><p>Quote-driven inventory models across ECNs, latency arbitrage between venues and the benchmark auctions, toxic-flow detection. Engineering-heavy.</p></div>
+      <div class="card"><h3><span class="ico">🧩</span>Structuring &amp; client solutions</h3><p>Designing exotics for corporate hedgers (TKNs, accumulators), then letting the quant desk monetize the residual flows and hedges. Sales-adjacent but deeply mathematical.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CAREER ==================== -->
+<section id="career">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">07 · The Ladder</div>
+      <h2>Career path in currency derivatives</h2>
+      <p class="lead">Typical progression on a systematic FX / vol desk at a bank, hedge fund or fintech market-maker.</p>
+    </div>
+    <div class="path">
+      <div class="step"><div class="meta">YEARS 0–2 · ENTRY</div><h3>Quant Researcher / FX Analyst</h3>
+        <p>Clean data, reproduce published factors (carry/momentum/value), build signal libraries, support live books. Degrees: MFin/Math/MSc Quant; Python fluency assumed. First comp bands: $90–160k (bank), $120–200k+ (funds, NYC/London).</p></div>
+      <div class="step"><div class="meta">YEARS 2–5 · CORE</div><h3>Quantitative Trader / Vol Trader</h3>
+        <p>Own a strategy sleeve end-to-end: research → execution logic → risk ownership. On dealer desks, move toward options/vol quoting or electronic market-making. P&L bonuses start to dominate salary ($150–350k total).</p></div>
+      <div class="step"><div class="meta">YEARS 5–10 · SENIOR</div><h3>Senior Researcher / Portfolio Manager</h3>
+        <p>Run a book or a systematic FX fund strategy with allocated capital; manage juniors, interface with allocators. Comp becomes P&L share — $300k–$1M+ at good years, mark-to-market with drawdowns.</p></div>
+      <div class="step"><div class="meta">YEARS 10+ · PEAK</div><h3>Desk Head / Fund Founder / Chief Quant</h3>
+        <p>Own the franchise (FX & EM macro desk) or launch a vehicle (CTA-style systematic FX fund, vol boutique, fintech MM). Alternatively pivot to crypto-FX, digital-asset market making, or macro family offices.</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:26px">
+      <div class="card"><h3><span class="ico">🎯</span>Who hires</h3><p>Dealer banks (JPM, DB, Citi, UBS), systematic funds (Man/AHL, Winton, Rokos, Elliott, Two Sigma, Citadel Securities, Optiver, Flow Traders), EM specialists, central-bank reserve managers, and fintech FX (Wise payments treasury, stablecoin desks).</p></div>
+      <div class="card"><h3><span class="ico">🚪</span>How to break in</h3><p>Competitions & credentials: Man Numeric, WorldQuant BRAIN, Rotman, StatQuest-style research write-ups. Projects that stand out: a carry-momentum-reversal replication on Dukascopy ticks; a WM-close impact study; a SABR surface-fitting library. Publish the code — GitHub counts.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RESOURCES ==================== -->
+<section id="resources">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">08 · Study List</div>
+      <h2>Recommended resources</h2>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h3><span class="ico">📚</span>Books</h3>
+        <p>• <b>Foreign Exchange Price Physics</b> — Brian Roach (market microstructure)<br>
+           • <b>FX Derivatives: Products and Pitfalls</b> — Gill & Singh<br>
+           • <b>Option Volatility & Pricing</b> — Natenberg<br>
+           • <b>The Evaluation and Optimization of Trading Strategies</b> — Pardo (incl. FX factor chapters)<br>
+           • <b>Interest Rate Models</b> — Brigo & Mercurio (curve & cross-currency math)<br>
+           • <b>Trading Systems</b> — Urban Jaekle (practical systematic design)</p>
+      </div>
+      <div class="card">
+        <h3><span class="ico">🌐</span>Data & practice</h3>
+        <p>• Dukascopy / HistData free tick bid-offer archives<br>
+           • BIS Triennial Survey (free, authoritative market size data)<br>
+           • FRED, OECD MEI, central-bank statement archives<br>
+           • CME listed FX futures settlement data<br>
+           • Build: a factor-model FX portfolio (carry+momentum+value) with vol targeting on real bid/offer — instant interview talking point.</p>
+      </div>
+    </div>
+    <div class="callout"><b>Regulatory note:</b> FX derivatives are governed by <b>Dodd-Frank</b> (CFTC — clearing/margin for certain swaps) and <b>EMIR/MiFID II</b> in Europe (clearing obligations, transaction reporting, benchmark reform after the WM/R scandal). Best-execution and benchmark-manipulation compliance are permanent features of modern FX quant work.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo" style="margin-bottom:8px">FX<span>·</span>DERIV Quant</div>
+    <p>An educational GitHub Pages project on currency derivatives trading as a quantitative finance career.
+    Not investment advice. Built with plain HTML/CSS — deploy via GitHub Actions <code>pages</code> workflow.</p>
+    <div class="links">
+      <a href="https://www.cmegroup.com/markets/fx.html" target="_blank" rel="noopener">CME FX</a>
+      <a href="https://www.bis.org/statistics/rpfx25.htm" target="_blank" rel="noopener">BIS FX Survey</a>
+      <a href="https://www.lseg.com/en/ftse-russell/foreign-exchange" target="_blank" rel="noopener">WM/R Benchmarks</a>
+      <a href="https://www.mcxindia.com/" target="_blank" rel="noopener">MCX</a>
+      <a href="https://www.cftc.gov/" target="_blank" rel="noopener">CFTC</a>
+    </div>
+    <p class="byline">Created by <b>Prakhar Gupta</b> — Quant Finance<a class="email" href="mailto:bestofprakhar@gmail.com">bestofprakhar@gmail.com</a><span class="socials">
+      <a href="https://www.linkedin.com/in/prakhar-gupta-5b7250372/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+      <a href="https://x.com/PrakharQuant" target="_blank" rel="noopener" aria-label="X (Twitter)" title="X / Twitter"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41z"/></svg></a>
+    </span></p>
+  </div>
+</footer>
+
+<script>
+  // Glossary tab filtering
+  const tabs = document.querySelectorAll('.tab');
+  const terms = document.querySelectorAll('#glossary-list details');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    const cat = t.dataset.cat;
+    terms.forEach(d => d.classList.toggle('hidden', cat !== 'all' && d.dataset.cat !== cat));
+  }));
+</script>
+</body>
+</html>
